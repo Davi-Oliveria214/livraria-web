@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Livraria</title>
+        <link rel="stylesheet" href="./src/css/style.css">
+        <link rel="stylesheet" href="./src/css/pages/inicial.css">
+    </head>
+    <body>
+        <header class="hearder">
+            <div class="logo">
+                <a href="./index.html">
+                    <img src="./src/assets/book.png" alt="">
+                </a>
+            </div>
+            <nav class="navegacao">
+                <ul class="links">
+                    <li>
+                        <a href="./index.html#lista">Listar</a>
+                    </li>
+                    <li>
+                        <a href="#">Adicionar</a>
+                    </li>
+                    <li>
+                        <a href="#">Remover</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="burguer">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </header>
+        <section class="banner">
+            <img src="" alt="">
+        </section>
+        <main class="main">
+            <section class="filtro">
+                <input
+                    type="radio"
+                    name="filtro"
+                    id="todos"
+                    value="Todos"
+                >
+                <label for="todos" class="item">Todos</label>
+                <input
+                    type="radio"
+                    name="filtro"
+                    id="acao"
+                    value="Ação"
+                >
+                <label for="acao" class="item">Ação</label>
+                <input
+                    type="radio"
+                    name="filtro"
+                    id="romance"
+                    value="Romance"
+                >
+                <label for="romance" class="item">Romance</label>
+            </section>
+            <section class="lista" id="lista">
+                <div class="card-livro">
+                    <img src="" alt="">
+                    <div class="info-card">
+                        <div>
+                            <p>Titulo:</p>
+                            <p>Autor:</p>
+                        </div>
+                        <div>
+                            <p>Preço:</p>
+                            <p>ISBN:</p>
+                        </div>
+                    </div>
+                    <div class="fun-card">
+                        <button type="button" class="button detalhes">Detalhes</button>
+                        <button type="button" class="button editar">Editar</button>
+                        <button type="button" class="button excluir">Excluir</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>
