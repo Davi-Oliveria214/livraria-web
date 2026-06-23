@@ -8,11 +8,10 @@
     text-decoration: none;
     border: 0;
     box-sizing: border-box;
-    color: var(--cor-fonte);
+    color: var(--light);
 }
 
 body {
-    background-color: var(--verde-dark-2);
     width: 100%;
     min-height: 100dvh;
 }
@@ -23,7 +22,7 @@ body {
     --verde-medium: #31572c;
     --verde-light: rgb(144, 169, 85);
 
-    --cor-fonte: #ecf39e;
+    --light: #ecf39e;
 }
 
 .button {
