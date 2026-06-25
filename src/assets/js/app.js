@@ -1,7 +1,11 @@
-function menu() {
-  document.querySelector(".navegacao").classList.toggle("ativo");
+const maxWidth = 600;
 
-  document.querySelector(".links").addEventListener("click", (event) => {
-    event.stopPropagation();
-  });
+function menu() {
+  if (window.innerWidth <= maxWidth) {
+    document.querySelector(".navegacao").classList.toggle("ativo");
+
+    document.querySelector(".links").addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+  }
 }
