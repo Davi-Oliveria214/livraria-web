@@ -9,6 +9,7 @@
   border: 0;
   box-sizing: border-box;
   color: var(--light);
+  outline: none;
 }
 
 body {
@@ -22,6 +23,10 @@ body::-webkit-scrollbar {
   width: 0px;
 }
 
+main {
+  flex: 1;
+}
+
 :root {
   --verde-dark: #091a09;
   --verde-dark-2: #132a13;
@@ -29,6 +34,7 @@ body::-webkit-scrollbar {
   --verde-light: rgb(144, 169, 85);
 
   --light: #ecf39e;
+  --black: #070707;
 }
 
 .button {

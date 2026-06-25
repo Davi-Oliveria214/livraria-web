@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Livro</title>
+    <link rel="stylesheet" href="../src/assets/css/style.css">
+    <link rel="stylesheet" href="../src/assets/css/pages/adicionar.css">
+    <script src="../src/assets/js/app.js" defer></script>
+</head>
+
+<body>
+    <script>
+        const header = "../src/components/header.html";
+
+        fetch(header)
+            .then((resp) => resp.text())
+            .then(
+                (data) => (document.body.innerHTML += data),
+            );
+    </script>
+
+    <main class="main">
+        <img src="" alt="">
+        <section class="box-adicionar">
+            <form action="" class="form-livro">
+                <h1>Adicionar livro</h1>
+                <div class="box-info">
+                    <label for="nome">Nome</label>
+                    <input type="text" name="nome" id="nome">
+                </div>
+                <div class="box-info">
+                    <label for="autor">Autor</label>
+                    <input type="text" name="autor" id="autor">
+                </div>
+                <div class="box-info">
+                    <label for="isbn">ISBN</label>
+                    <input type="text" name="isbn" id="isbn">
+                </div>
+                <div class="box-info">
+                    <label for="preco">Preço</label>
+                    <input type="number" step="any" min="0" placeholder="0.00" name="preco" id="preco">
+                </div>
+                <div class="box-info">
+                    <label for="estoque">Estoque</label>
+                    <input type="number" min="0" name="estoque" id="estoque">
+                </div>
+                <div class="box-info">
+                    <label for="desc">Estoque</label>
+                    <textarea name="descricao" id="desc"></textarea>
+                </div>
+
+                <div class="buttons">
+                    <button type="submit" class="button adicionar">Adicionar</button>
+                    <button type="button" class="button">Limpar</button>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>
