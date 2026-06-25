@@ -1,15 +1,7 @@
-const burguer = document.querySelector("#burguer");
-const nav = document.querySelector(".navegacao");
-const navLinks = document.querySelector(".links");
+function menu() {
+  document.querySelector(".navegacao").classList.toggle("ativo");
 
-burguer.addEventListener("click", () => {
-  nav.classList.toggle("ativo");
-});
-
-nav.addEventListener("click", () => {
-  nav.classList.toggle("ativo");
-});
-
-navLinks.addEventListener("click", (event) => {
-  event.stopPropagation();
-});
+  document.querySelector(".links").addEventListener("click", (event) => {
+    event.stopPropagation();
+  });
+}
