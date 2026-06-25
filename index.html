@@ -10,14 +10,14 @@
   <script src="./src/assets/js/app.js" defer></script>
 </head>
 
-<body id="container">
+<body>
   <script>
-    const header = "./src/components/header.html";
+    const header = "../src/components/header.html";
 
     fetch(header)
       .then((resp) => resp.text())
       .then(
-        (data) => (document.getElementById("container").innerHTML += data),
+        (data) => (document.body.innerHTML += data),
       );
   </script>
 
