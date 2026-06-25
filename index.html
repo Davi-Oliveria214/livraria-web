@@ -1,110 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livraria</title>
-    <link rel="stylesheet" href="./src/css/style.css">
-    <link rel="stylesheet" href="./src/css/pages/inicial.css">
-    <script src="./src/js/app.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Livraria</title>
+  <link rel="stylesheet" href="./src/assets/css/style.css" />
+  <link rel="stylesheet" href="./src/assets/css/pages/inicial.css" />
+  <script src="./src/assets/js/app.js" defer></script>
 </head>
 
-<body>
-    <header class="hearder">
-        <div class="logo">
-            <a href="./index.html">
-                <img src="./src/assets/book.png" alt="">
-            </a>
-        </div>
-        <nav class="navegacao">
-            <ul class="links">
-                <li>
-                    <a href="./index.html#lista">Listar</a>
-                </li>
-                <li>
-                    <a href="#">Adicionar</a>
-                </li>
-                <li>
-                    <a href="#">Remover</a>
-                </li>
-            </ul>
-        </nav>
-        <div id="burguer">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </header>
-    <section class="banner">
-        <img src="" alt="">
+<body id="container">
+  <script>
+    const header = "./src/components/header.html";
+
+    fetch(header)
+      .then((resp) => resp.text())
+      .then(
+        (data) => (document.getElementById("container").innerHTML += data),
+      );
+  </script>
+
+  <section class="banner">
+    <img src="" alt="" />
+  </section>
+
+  <main class="main">
+    <section class="filtro">
+      <input type="radio" name="filtro" id="todos" value="Todos" />
+      <label for="todos" class="item">Todos</label>
+      <input type="radio" name="filtro" id="acao" value="Ação" />
+      <label for="acao" class="item">Ação</label>
+      <input type="radio" name="filtro" id="romance" value="Romance" />
+      <label for="romance" class="item">Romance</label>
     </section>
-    <main class="main">
-        <section class="filtro">
-            <input type="radio" name="filtro" id="todos" value="Todos">
-            <label for="todos" class="item">Todos</label>
-            <input type="radio" name="filtro" id="acao" value="Ação">
-            <label for="acao" class="item">Ação</label>
-            <input type="radio" name="filtro" id="romance" value="Romance">
-            <label for="romance" class="item">Romance</label>
-        </section>
-        <section class="lista" id="lista">
-            <div class="card-livro">
-                <img src="" alt="">
-                <div class="info-card">
-                    <div class="itens-info">
-                        <div>
-                            <p>Titulo:</p>
-                            <p>Autor:</p>
-                            <p>Gênero:</p>
-                        </div>
-                        <div>
-                            <p>Preço:</p>
-                            <p>ISBN:</p>
-                        </div>
-                    </div>
-                    <div class="descri-card">
-                        <p>Descrição</p>
-                        <p class="txt-desc">.....</p>
-                    </div>
-                </div>
-                <div class="fun-card">
-                    <div class="grid-buttons">
-                        <button type="button" class="button detalhes">Detalhes</button>
-                        <button type="button" class="button editar">Editar</button>
-                    </div>
-                    <div><button type="button" class="button excluir">Excluir</button></div>
-                </div>
+    <section class="lista" id="lista">
+      <div class="card-livro">
+        <img src="" alt="" />
+        <div class="info-card">
+          <div class="itens-info">
+            <div>
+              <p>Titulo:</p>
+              <p>Autor:</p>
+              <p>Gênero:</p>
             </div>
-            <div class="card-livro">
-                <img src="" alt="">
-                <div class="info-card">
-                    <div class="itens-info">
-                        <div>
-                            <p>Titulo:</p>
-                            <p>Autor:</p>
-                            <p>Gênero:</p>
-                        </div>
-                        <div>
-                            <p>Preço:</p>
-                            <p>ISBN:</p>
-                        </div>
-                    </div>
-                    <div class="descri-card">
-                        <p>Descrição</p>
-                        <p class="txt-desc">.....</p>
-                    </div>
-                </div>
-                <div class="fun-card">
-                    <div class="grid-buttons">
-                        <button type="button" class="button detalhes">Detalhes</button>
-                        <button type="button" class="button editar">Editar</button>
-                    </div>
-                    <div><button type="button" class="button excluir">Excluir</button></div>
-                </div>
+            <div>
+              <p>Preço:</p>
+              <p>ISBN:</p>
             </div>
-        </section>
-    </main>
+          </div>
+          <div class="descri-card">
+            <p>Descrição</p>
+            <p class="txt-desc">.....</p>
+          </div>
+        </div>
+        <div class="fun-card">
+          <div class="grid-buttons">
+            <button type="button" class="button detalhes">Detalhes</button>
+            <button type="button" class="button editar">Editar</button>
+          </div>
+          <div>
+            <button type="button" class="button excluir">Excluir</button>
+          </div>
+        </div>
+      </div>
+      <div class="card-livro">
+        <img src="" alt="" />
+        <div class="info-card">
+          <div class="itens-info">
+            <div>
+              <p>Titulo:</p>
+              <p>Autor:</p>
+              <p>Gênero:</p>
+            </div>
+            <div>
+              <p>Preço:</p>
+              <p>ISBN:</p>
+            </div>
+          </div>
+          <div class="descri-card">
+            <p>Descrição</p>
+            <p class="txt-desc">.....</p>
+          </div>
+        </div>
+        <div class="fun-card">
+          <div class="grid-buttons">
+            <button type="button" class="button detalhes">Detalhes</button>
+            <button type="button" class="button editar">Editar</button>
+          </div>
+          <div>
+            <button type="button" class="button excluir">Excluir</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
 
 </html>
