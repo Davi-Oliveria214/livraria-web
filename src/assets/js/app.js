@@ -9,3 +9,7 @@ function menu() {
     });
   }
 }
+
+// const lista = document.getElementById('lista')
+// const json = fetch('localhost:8080/livraria').then((body) => body.json).then((resposta) => resposta.json())
+// console.log(json)
