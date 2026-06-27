@@ -81,15 +81,31 @@
 }
 
 .info-card .itens-info {
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(1, 100%);
   margin: 5px 0px 5px 0px;
+  gap: 2px;
 }
 
 .info-card .itens-info>div {
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+.itens-info p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info-card p {
+  color: var(--verde-medium);
+}
+
+.card-livro strong {
+  color: var(--verde-dark-2);
 }
 
 .txt-desc {
@@ -111,10 +127,6 @@
 .txt-desc::-webkit-scrollbar-thumb {
   background-color: var(light);
   border-radius: 3px;
-}
-
-.info-card p {
-  color: var(--verde-dark-2);
 }
 
 .fun-card {
