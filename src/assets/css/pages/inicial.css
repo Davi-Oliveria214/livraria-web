@@ -125,7 +125,7 @@
 }
 
 .txt-desc::-webkit-scrollbar-thumb {
-  background-color: var(light);
+  background-color: var(--light);
   border-radius: 3px;
 }
 

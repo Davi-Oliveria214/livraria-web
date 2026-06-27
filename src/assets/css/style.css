@@ -1,4 +1,5 @@
-@import url("./layouts/header.css");
+@import url('./layouts/header.css');
+@import url('./layouts/modais.css');
 
 * {
   padding: 0;

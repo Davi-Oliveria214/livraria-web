@@ -1,4 +1,5 @@
 const maxWidth = 600;
+const URL_API = 'http://127.0.0.1:8080/livraria'
 
 function menu() {
    if (window.innerWidth <= maxWidth) {
@@ -12,19 +13,19 @@ function menu() {
 
 const lista = document.getElementById('lista')
 async function dados() {
-   const URL = 'http://127.0.0.1:8080/livraria'
-   const resp = await fetch(URL).then(data => data.json()).catch(erro => lista.innerHTML = msgErro(erro))
+   const resp = await fetch(URL_API).then(data => data.json()).catch(erro => lista.innerHTML = msgErro(erro))
 
-   let cards = ''
+   let cards = ""
    resp.forEach(livro => {
       cards += criarCard(livro)
-   });
+   })
 
    lista.innerHTML = cards
 }
 
 function msgErro(erro) {
    const mensagem = `<p class='erro'>Erro na conexão da API livraria ${erro}</p>`
+   return mensagem
 }
 
 function criarCard(livro) {
@@ -64,34 +65,38 @@ function criarCard(livro) {
 dados()
 
 async function abrirModal(id) {
-   const URL = `http://127.0.0.1:8080/livraria/${id}`
-   const livro = await fetch(URL).then(data => data.json()).catch(erro => lista.innerHTML = msgErro(erro))
-
-   // fetch('../src/components/modal.html')
-   //    .then(modal => modal.text())
-   //    .then(text => document.body.innerHTML += text)
+   const buscaId = `${URL_API}/${id}`
+   const livro = await fetch(buscaId).then(data => data.json()).catch(erro => lista.innerHTML = msgErro(erro))
 
    const modal =
       `<div class='fundo'>
-      <div class='modal-detalhes'>
-         <h1>${livro['titulo']}</h1>
-         <div>
-               <div class='info-modal'>
-                  <p><strong>Autor:</strong> ${livro['autor']}</p>
-                  <p><strong>Gênero</strong> ${livro['genero'] || 'Não especificado'}</p>
-                  <p><strong>Preço:</strong> ${livro['preco']}</p>
-                  <p><strong>ISBN:</strong> ${livro['isbn']}</p>
-                  <p><strong>Lançamento:</strong> ${livro['lancamento']}</p>
-                  <p><strong>Estoque:</strong> ${livro['estoque']}</p>
-               </div>
-               <div>
-                  <p><strong>Sinopse:</strong></p>
-                  <p class='sinopse-modal'>...</p>
-               </div>
-               <button type='button'>Fechar</button>
+         <div class='modal detalhes-livro'>
+            <h1>${livro['titulo']}</h1>
+            <div>
+                  <div class='info-modal'>
+                     <p><strong>Autor:</strong> ${livro['autor']}</p>
+                     <p><strong>Gênero</strong> ${livro['genero'] || 'Não especificado'}</p>
+                     <p><strong>Preço:</strong> ${livro['preco']}</p>
+                     <p><strong>ISBN:</strong> ${livro['isbn']}</p>
+                     <p><strong>Lançamento:</strong> ${livro['lancamento']}</p>
+                     <p><strong>Estoque:</strong> ${livro['estoque']}</p>
+                  </div>
+                  <div>
+                     <p><strong>Sinopse:</strong></p>
+                     <p class='sinopse-modal'>...</p>
+                  </div>
+            </div>
+            <button type='button' class='button'>Fechar</button>
          </div>
-      </div>
-   </div>`
+      </div>`
 
    document.body.innerHTML += modal
+
+   let fundo = document.querySelector('.fundo')
+
+   document.addEventListener('click', (event) => {
+      if (event.target.classList == 'fundo' || event.target.classList == 'button') {
+         fundo.remove()
+      }
+   })
 }
