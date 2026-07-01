@@ -13,19 +13,24 @@ function menu() {
 
 const lista = document.getElementById('lista')
 async function dados() {
-   const resp = await fetch(URL_API).then(data => data.json()).catch(erro => lista.innerHTML = msgErro(erro))
+   if (!lista) return
+
+   const resp = await fetch(URL_API).then(data => data.json()).catch(erro => msgErro(erro))
 
    let cards = ""
-   resp.forEach(livro => {
+   if (resp) resp.forEach(livro => {
       cards += criarCard(livro)
    })
 
-   if (lista) lista.innerHTML = cards
+   lista.insertAdjacentHTML('afterbegin', cards)
 }
 
 function msgErro(erro) {
-   const mensagem = `<p class='erro'>Erro na conexão da API livraria ${erro}</p>`
-   return mensagem
+   lista.innerHTML =
+      `<div class='msg-erro'>
+         <strong>Erro ao acessar os livros</strong>
+         <p>${erro.message}</p>
+      <div>`
 }
 
 function criarCard(livro) {
@@ -66,7 +71,7 @@ if (lista) dados()
 
 async function abrirModal(id) {
    const buscaId = `${URL_API}/${id}`
-   const livro = await fetch(buscaId).then(data => data.json()).catch(erro => lista.innerHTML = msgErro(erro))
+   const livro = await fetch(buscaId).then(data => data.json()).catch(erro => msgErro(erro))
 
    const modal =
       `<div class='fundo'>
@@ -86,17 +91,19 @@ async function abrirModal(id) {
                      <p class='sinopse-modal'>...</p>
                   </div>
             </div>
-            <button type='button' class='button'>Fechar</button>
+            <button type='button' class='button btn-fechar'>Fechar</button>
          </div>
       </div>`
 
-   document.body.innerHTML += modal
+   document.body.insertAdjacentHTML('beforeend', modal)
 
-   let fundo = document.querySelector('.fundo')
+   const fundo = document.querySelector('.fundo')
+   const btn_fechar = document.querySelector('.btn-fechar')
 
-   document.addEventListener('click', (event) => {
-      if (event.target.classList == 'fundo' || event.target.classList == 'button') {
-         fundo.remove()
-      }
+   const fecharModal = () => fundo.remove()
+
+   btn_fechar.addEventListener('click', fecharModal)
+   fundo.addEventListener('click', (event) => {
+      if (event.target === fundo) fecharModal()
    })
 }
