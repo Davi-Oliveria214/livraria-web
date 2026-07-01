@@ -20,7 +20,7 @@ async function dados() {
       cards += criarCard(livro)
    })
 
-   lista.innerHTML = cards
+   if (lista) lista.innerHTML = cards
 }
 
 function msgErro(erro) {
@@ -62,7 +62,7 @@ function criarCard(livro) {
    return card
 }
 
-dados()
+if (lista) dados()
 
 async function abrirModal(id) {
    const buscaId = `${URL_API}/${id}`

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../src/assets/css/style.css">
     <link rel="stylesheet" href="../src/assets/css/pages/adicionar.css">
     <script src="../src/assets/js/app.js" defer></script>
+    <script src="../src/assets/js/api/api.js" defer></script>
 </head>
 
 <body>
@@ -17,38 +18,38 @@
         fetch(header)
             .then((resp) => resp.text())
             .then(
-                (data) => (document.body.innerHTML += data),
+                (data) => (document.body.insertAdjacentHTML('afterbegin', data))
             );
     </script>
 
     <main class="main">
         <img src="" alt="">
         <section class="box-adicionar">
-            <form action="" class="form-livro">
+            <form class="form-livro" id="form-livro">
                 <h1>Adicionar livro</h1>
                 <div class="box-info">
                     <label for="nome">Nome</label>
-                    <input type="text" name="nome" id="nome">
+                    <input type="text" name="nome" id="nome" required>
                 </div>
                 <div class="box-info">
                     <label for="autor">Autor</label>
-                    <input type="text" name="autor" id="autor">
+                    <input type="text" name="autor" id="autor" required>
                 </div>
                 <div class="box-info">
                     <label for="isbn">ISBN</label>
-                    <input type="text" name="isbn" id="isbn">
+                    <input type="text" name="isbn" id="isbn" required>
                 </div>
                 <div class="box-info">
                     <label for="preco">Preço</label>
-                    <input type="number" step="any" min="0" placeholder="0.00" name="preco" id="preco">
+                    <input type="number" step="any" min="0" placeholder="0.00" name="preco" id="preco" required>
                 </div>
                 <div class="box-info">
                     <label for="estoque">Estoque</label>
-                    <input type="number" min="0" name="estoque" id="estoque">
+                    <input type="number" min="0" name="estoque" id="estoque" required>
                 </div>
                 <div class="box-info">
-                    <label for="desc">Estoque</label>
-                    <textarea name="descricao" id="desc"></textarea>
+                    <label for="desc">Sinopse</label>
+                    <textarea name="descricao" id="desc" required></textarea>
                 </div>
 
                 <div class="buttons">

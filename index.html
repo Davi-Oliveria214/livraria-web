@@ -16,7 +16,7 @@
 
         fetch(header)
             .then((resp) => resp.text())
-            .then((data) => (document.body.innerHTML += data));
+            .then((data) => document.body.insertAdjacentHTML('afterbegin', data))
     </script>
 
     <section class="banner">
