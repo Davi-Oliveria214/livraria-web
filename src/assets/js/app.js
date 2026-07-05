@@ -15,7 +15,7 @@ const lista = document.getElementById('lista')
 async function dados() {
    if (!lista) return
 
-   const resp = await fetch(URL_API + "?limit=25").then(data => data.json()).catch(erro => msgErro(erro))
+   const resp = await fetch(URL_API).then(data => data.json()).catch(erro => msgErro(erro))
 
    let cards = ""
    if (resp) resp.forEach(livro => {
@@ -23,6 +23,36 @@ async function dados() {
    })
 
    lista.insertAdjacentHTML('afterbegin', cards)
+}
+
+let carregando = false;
+
+if (lista) lista.addEventListener('scroll', () => {
+   var scrollTop = lista.scrollTop;
+   var off = lista.children.length
+
+   if (carregando) return;
+
+   if ((scrollTop + lista.clientHeight) >= (lista.scrollHeight - 200)) {
+      gerarMais(off);
+   }
+})
+
+async function gerarMais(off) {
+   carregando = true;
+
+   const resp = await fetch(URL_API + `?limit=5&off=${off}`).then(data => data.json()).catch(erro => msgErro(erro))
+
+   if (resp && resp.length > 0) {
+      let cards = ""
+      if (resp) resp.forEach(livro => {
+         cards += criarCard(livro)
+      })
+
+      lista.insertAdjacentHTML('beforeend', cards)
+   }
+
+   carregando = false;
 }
 
 function msgErro(erro) {
@@ -67,7 +97,7 @@ function criarCard(livro) {
    return card
 }
 
-if (lista) dados()
+dados()
 
 async function abrirModal(id) {
    const buscaId = `${URL_API}/${id}`

@@ -50,12 +50,34 @@
   background-color: rgba(144, 169, 85, 2);
 }
 
+.caixa {
+  width: 100%;
+  padding: 10px 5px;
+}
+
 .lista {
   width: 100%;
-  padding: 10px 15px;
+  max-height: 380px;
+  overflow-y: scroll;
+  padding: 5px 10px;
+  border: 2px solid var(--verde-medium);
+  border-radius: 5px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 300px));
   gap: 15px;
+}
+
+.lista::-webkit-scrollbar {
+  width: 4px;
+}
+
+.lista::-webkit-scrollbar-track {
+  background-color: var(--verde-dark-2);
+}
+
+.lista::-webkit-scrollbar-thumb {
+  background-color: var(--light);
+  border-radius: 5px;
 }
 
 .card-livro {
