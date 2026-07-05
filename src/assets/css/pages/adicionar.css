@@ -44,8 +44,9 @@
 }
 
 .box-info>input,
-.box-info>textarea {
-    font-size: 1.1rem;
+.box-info>textarea,
+.box-info>select {
+    font-size: 1rem;
     padding: 2px 5px;
     color: var(--black);
     border-radius: 5px;
@@ -53,8 +54,15 @@
 }
 
 .box-info>input:hover,
-.box-info>textarea:hover {
+.box-info>textarea:hover,
+.box-info>select {
     border-color: var(--verde-medium);
+}
+
+.box-info>input::placeholder,
+.box-info>textarea::placeholder {
+    text-transform: uppercase;
+    font-size: 0.8rem;
 }
 
 .box-info>input:focus,

@@ -15,7 +15,7 @@ const lista = document.getElementById('lista')
 async function dados() {
    if (!lista) return
 
-   const resp = await fetch(URL_API).then(data => data.json()).catch(erro => msgErro(erro))
+   const resp = await fetch(URL_API + "?limit=25").then(data => data.json()).catch(erro => msgErro(erro))
 
    let cards = ""
    if (resp) resp.forEach(livro => {
