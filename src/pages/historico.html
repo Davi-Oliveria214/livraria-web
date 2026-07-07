@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Histórico</title>
+
+        <!-- Css -->
+        <link rel="stylesheet" href="/src/assets/css/style.css" />
+        <link rel="stylesheet" href="/src/assets/css/layouts/historico.css" />
+
+        <!-- JavaScript -->
+        <script src="/src/assets/js/app.js"></script>
+        <script src="/src/assets/js/modules/historico.js"></script>
+    </head>
+
+    <body>
+        <script>
+            const header = "/src/components/header.html";
+
+            fetch(header)
+                .then((resp) => resp.text())
+                .then((resp) =>
+                    document.body.insertAdjacentHTML("afterbegin", resp),
+                );
+        </script>
+
+        <main class="historico">
+            <section class="his-info box-his">
+                <h2>Informações</h2>
+                <div class="info-sobre">
+                    <div>
+                        <p><strong>Livros: </strong>50</p>
+                    </div>
+                    <div>
+                        <p><strong>Gêneros: </strong>20</p>
+                    </div>
+                    <div>
+                        <p><strong>Autores: </strong>10</p>
+                    </div>
+                </div>
+            </section>
+            <section class="his-box box-his">
+                <div class="his-card">
+                    <div class="info-card">
+                        <p><strong>Titulo: </strong>Livro1</p>
+                        <p><strong>Autor: </strong>Autor1</p>
+                        <p><strong>ISBN: </strong>ISBN1</p>
+                        <p><strong>Adicionado: </strong>Data1</p>
+                    </div>
+                    <div class="his-btn">
+                        <button type="button" class="editar button">
+                            Detalhes
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>
