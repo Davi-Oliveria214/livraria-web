@@ -1,33 +1,33 @@
-const form = document.getElementById('form-livro')
+const URL_API = 'http://127.0.0.1:8080/livraria'
 
-let dadosForm = null
-form.onsubmit = function (event) {
-    event.preventDefault()
-
-    const formData = new FormData(form)
-    dadosForm = {
-        titulo: formData.get('titulo'),
-        autor: formData.get('autor'),
-        isbn: formData.get('isbn'),
-        preco: formData.get('preco'),
-        lancamento: formData.get('lancamento'),
-        genero: formData.get('genero'),
-        estoque: formData.get('estoque'),
-        sinopse: formData.get('sinopse')
-    }
-
-    post(dadosForm)
-}
-
-async function post(json) {
-    const enviar = await fetch(URL_API, {
+async function post(livro) {
+    const adicionar = await fetch(URL_API, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(json)
-    });
+        body: JSON.stringify(livro)
+    }).then(data => data.json())
 
-    const teste = await enviar.json()
-    console.log(teste)
+    return adicionar
 }
+
+async function getLivros() {
+    const resp = await fetch(URL_API).then(data => data.json())
+
+    return resp
+}
+
+async function plusLivros(limit, off) {
+    const resp = await fetch(`${URL_API}?limit=${limit}&off=${off}`).then(data => data.json())
+
+    return resp
+}
+
+async function getId(id) {
+    const resp = await fetch(`${URL_API}/${id}`).then(data => data.json())
+
+    return resp
+}
+
+export { post, getLivros, getId, plusLivros }
