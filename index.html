@@ -1,46 +1,55 @@
 <!doctype html>
 <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Livraria</title>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Livraria</title>
+        <!-- Css -->
+        <link rel="stylesheet" href="/src/assets/css/style.css" />
+        <link rel="stylesheet" href="/src/assets/css/pages/inicial.css" />
 
-    <!-- Css -->
-    <link rel="stylesheet" href="./src/assets/css/style.css" />
-    <link rel="stylesheet" href="./src/assets/css/pages/inicial.css" />
+        <!-- JavaScript -->
+        <script src="/src/assets/js/app.js" defer></script>
+        <script
+            src="/src/assets/js/modules/index.js"
+            type="module"
+            defer
+        ></script>
+    </head>
 
-    <!-- JavaScript -->
-    <script src="../src/assets/js/app.js" defer></script>
-    <script src="../src/assets/js/modules/index.js" type="module" defer></script>
-</head>
+    <body>
+        <script>
+            const header = "../src/components/header.html";
 
-<body>
-    <script>
-        const header = "../src/components/header.html";
+            fetch(header)
+                .then((resp) => resp.text())
+                .then((data) =>
+                    document.body.insertAdjacentHTML("afterbegin", data),
+                );
+        </script>
 
-        fetch(header)
-            .then((resp) => resp.text())
-            .then((data) => document.body.insertAdjacentHTML('afterbegin', data))
-    </script>
-
-    <section class="banner">
-        <img src="" alt="" />
-    </section>
-
-    <main class="main">
-        <section class="filtro">
-            <input type="radio" name="filtro" id="todos" value="Todos" />
-            <label for="todos" class="item">Todos</label>
-            <input type="radio" name="filtro" id="acao" value="Ação" />
-            <label for="acao" class="item">Ação</label>
-            <input type="radio" name="filtro" id="romance" value="Romance" />
-            <label for="romance" class="item">Romance</label>
+        <section class="banner">
+            <img src="" alt="" />
         </section>
-        <section class="caixa">
-            <div class="lista" id="lista"></div>
-        </section>
-    </main>
-</body>
 
+        <main class="main">
+            <section class="filtro">
+                <input type="radio" name="filtro" id="todos" value="Todos" />
+                <label for="todos" class="item">Todos</label>
+                <input type="radio" name="filtro" id="acao" value="Ação" />
+                <label for="acao" class="item">Ação</label>
+                <input
+                    type="radio"
+                    name="filtro"
+                    id="romance"
+                    value="Romance"
+                />
+                <label for="romance" class="item">Romance</label>
+            </section>
+            <section class="caixa">
+                <div class="lista" id="lista"></div>
+            </section>
+        </main>
+    </body>
 </html>
