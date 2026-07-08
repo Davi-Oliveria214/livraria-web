@@ -1,4 +1,4 @@
-import {getId} from '../api/api.js'
+import { getId } from '../api/api.js'
 
 function criarCard(livro) {
    const card =
@@ -30,6 +30,25 @@ function criarCard(livro) {
             </div>
          </div>
       </div>`
+
+   return card
+}
+
+function cardHistorico(livro) {
+   const card =
+      `<div class="his-card">
+      <div class="info-card">
+         <p><strong>Titulo: </strong>${livro['titulo']}</p>
+         <p><strong>Autor: </strong>${livro['autor']}</p>
+         <p><strong>ISBN: </strong>${livro['isbn']}</p>
+         <p><strong>Adicionado: </strong>${livro['criado_em']}</p>
+      </div>
+      <div class="his-btn">
+         <button type="button" onclick='abrirModal(${livro['id']})' class="editar button">
+            Detalhes
+         </button>
+      </div>
+   </div>`
 
    return card
 }
@@ -72,4 +91,4 @@ async function modal(id) {
    })
 }
 
-export {criarCard, modal}
+export { criarCard, modal, cardHistorico }

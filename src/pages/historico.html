@@ -7,11 +7,11 @@
 
         <!-- Css -->
         <link rel="stylesheet" href="/src/assets/css/style.css" />
-        <link rel="stylesheet" href="/src/assets/css/layouts/historico.css" />
+        <link rel="stylesheet" href="/src/assets/css/pages/historico.css" />
 
         <!-- JavaScript -->
         <script src="/src/assets/js/app.js"></script>
-        <script src="/src/assets/js/modules/historico.js"></script>
+        <script src="/src/assets/js/modules/historico.js" type="module"></script>
     </head>
 
     <body>
@@ -29,32 +29,12 @@
             <section class="his-info box-his">
                 <h2>Informações</h2>
                 <div class="info-sobre">
-                    <div>
-                        <p><strong>Livros: </strong>50</p>
-                    </div>
-                    <div>
-                        <p><strong>Gêneros: </strong>20</p>
-                    </div>
-                    <div>
-                        <p><strong>Autores: </strong>10</p>
-                    </div>
+                    <p id="qtd-livros"><strong>Livros: </strong>50</p>
+                    <p id="qtd-generos"><strong>Gêneros: </strong>20</p>
+                    <p id="qtd-autores"><strong>Autores: </strong>10</p>
                 </div>
             </section>
-            <section class="his-box box-his">
-                <div class="his-card">
-                    <div class="info-card">
-                        <p><strong>Titulo: </strong>Livro1</p>
-                        <p><strong>Autor: </strong>Autor1</p>
-                        <p><strong>ISBN: </strong>ISBN1</p>
-                        <p><strong>Adicionado: </strong>Data1</p>
-                    </div>
-                    <div class="his-btn">
-                        <button type="button" class="editar button">
-                            Detalhes
-                        </button>
-                    </div>
-                </div>
-            </section>
+            <section class="his-box box-his" id="lista"></section>
         </main>
     </body>
 </html>

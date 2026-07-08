@@ -30,4 +30,16 @@ async function getId(id) {
     return resp
 }
 
-export { post, getLivros, getId, plusLivros }
+async function historico() {
+    const resp = await fetch(`${URL_API}/historico?limit=10`).then(data => data.json())
+
+    return resp
+}
+
+async function plusHistorico(ordem, limit, off) {
+    const resp = await fetch(`${URL_API}/historico?ordem=${ordem}&limit=${limit}&off=${off}`)
+
+    return resp
+}
+
+export { post, getLivros, getId, plusLivros, historico, plusHistorico }

@@ -47,7 +47,8 @@
     height: clamp(320px, 500px, 100vh);
     display: grid;
     padding: 5px 10px;
-    grid-template-rows: repeat(auto-fit, max(120px));
+    gap: 15px;
+    grid-template-columns: repeat(auto-fit, 100%);
     align-items: center;
 }
 
