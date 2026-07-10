@@ -1,5 +1,13 @@
 import { getId } from '../api/api.js'
 
+const data = new Intl.DateTimeFormat('pt-br', {
+   dateStyle: 'short',
+})
+
+const hora = new Intl.DateTimeFormat('pt-br', {
+   timeStyle: 'short',
+})
+
 function criarCard(livro) {
    const card =
       `<div class='card-livro'>
@@ -11,7 +19,7 @@ function criarCard(livro) {
                <p><strong>Gênero:</strong> ${livro['genero'] || 'Não especificado'}</p>
                <p><strong>Preço:</strong> ${livro['preco']}</p>
                <p><strong>ISBN:</strong> ${livro['isbn']}</p>
-               <p><strong>Lançamento:</strong> ${livro['lancamento']}</p>
+               <p><strong>Lançamento:</strong> ${data.format(new Date(livro['lancamento']))}</p>
                <p><strong>Estoque:</strong> ${livro['estoque']}</p>
             </div>
             </div>
@@ -41,7 +49,7 @@ function cardHistorico(livro) {
          <p><strong>Titulo: </strong>${livro['titulo']}</p>
          <p><strong>Autor: </strong>${livro['autor']}</p>
          <p><strong>ISBN: </strong>${livro['isbn']}</p>
-         <p><strong>Adicionado: </strong>${livro['criado_em']}</p>
+         <p><strong>Adicionado:</strong> ${data.format(new Date(livro['criado_em']))} / ${hora.format(new Date(livro['criado_em']))}</p>
       </div>
       <div class="his-btn">
          <button type="button" onclick='abrirModal(${livro['id']})' class="editar button">
@@ -66,7 +74,7 @@ async function modal(id) {
                      <p><strong>Gênero</strong> ${livro['genero'] || 'Não especificado'}</p>
                      <p><strong>Preço:</strong> ${livro['preco']}</p>
                      <p><strong>ISBN:</strong> ${livro['isbn']}</p>
-                     <p><strong>Lançamento:</strong> ${livro['lancamento']}</p>
+                     <p><strong>Lançamento:</strong> ${data.format(new Date(livro['lancamento']))}</p>
                      <p><strong>Estoque:</strong> ${livro['estoque']}</p>
                   </div>
                   <div>
