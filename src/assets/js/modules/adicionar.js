@@ -1,4 +1,5 @@
 import { post } from '../api/api.js'
+import { cardAviso } from '../modal/modal.js'
 
 const form = document.getElementById('form-livro')
 form.onsubmit = async function (event) {
@@ -18,4 +19,6 @@ form.onsubmit = async function (event) {
     }
 
     const resp = await post(livro)
+
+    cardAviso(resp)
 }

@@ -61,6 +61,43 @@ function cardHistorico(livro) {
    return card
 }
 
+function cardAviso(aviso) {
+   const info = function mostar(info) {
+      var msg = ""
+      if (!info['error']) {
+         msg = `<p>Autor: ${info['autor']}<p>
+            <p>Titulo: ${info['titulo']}</p>
+            <p>Lançamento: ${data.format(new Date(info['lancamento']))}</p>`
+      }
+
+      return msg
+   }
+
+   const card =
+      `<div class="fundo">
+      <div class="card-aviso">
+         <h1>${aviso['error'] || 'Adicionado!!'}</h1>
+         <div>
+            <p>${aviso['message'] || 'Livro adicinado com sucesso!!'}</p>
+            ${info(aviso)}
+         </div>
+         <button type="button" class="button btn-fechar">Fechar</button>
+      </div>
+   </div>`
+
+   document.body.insertAdjacentHTML('beforeend', card)
+
+   const fundo = document.querySelector('.fundo')
+   const btn_fechar = document.querySelector('.btn-fechar')
+
+   const fecharModal = () => fundo.remove()
+
+   btn_fechar.addEventListener('click', fecharModal)
+   fundo.addEventListener('click', (event) => {
+      if (event.target === fundo) fecharModal()
+   })
+}
+
 async function modal(id) {
    const livro = await getId(id)
 
@@ -99,4 +136,4 @@ async function modal(id) {
    })
 }
 
-export { criarCard, modal, cardHistorico }
+export { criarCard, modal, cardHistorico, cardAviso }
