@@ -30,14 +30,15 @@ async function getId(id) {
     return resp
 }
 
-async function historico() {
-    const resp = await fetch(`${URL_API}/historico?limit=10`).then(data => data.json())
+async function historico(ordem = false) {
+    const resp = await fetch(`${URL_API}/historico?orem=${ordem}`).then(data => data.json())
 
     return resp
 }
 
-async function plusHistorico(ordem, limit, off) {
-    const resp = await fetch(`${URL_API}/historico?ordem=${ordem}&limit=${limit}&off=${off}`)
+async function plusHistorico(limit, off, ordem = true) {
+    const resp = await fetch(`${URL_API}/historico?ordem=${ordem}&limit=${limit}&off=${off}`).then(data => data.json())
+    console.log(resp)
 
     return resp
 }

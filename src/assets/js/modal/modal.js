@@ -136,4 +136,43 @@ async function modal(id) {
    })
 }
 
-export { criarCard, modal, cardHistorico, cardAviso }
+async function modalHis(id) {
+   const livro = await getId(id)
+
+   const modal =
+      `<div class='fundo'>
+         <div class='modal detalhes-livro'>
+            <h1>${livro['titulo']}</h1>
+            <div>
+                  <div class='info-modal'>
+                     <p><strong>Autor:</strong> ${livro['autor']}</p>
+                     <p><strong>Gênero</strong> ${livro['genero'] || 'Não especificado'}</p>
+                     <p><strong>Preço:</strong> ${livro['preco']}</p>
+                     <p><strong>ISBN:</strong> ${livro['isbn']}</p>
+                     <p><strong>Lançamento:</strong> ${data.format(new Date(livro['lancamento']))}</p>
+                     <p><strong>Estoque:</strong> ${livro['estoque']}</p>
+                     <p><strong>Adicionado:</strong> ${data.format(new Date(livro['criado_em']))} / ${hora.format(new Date(livro['criado_em']))}</p>
+                  </div>
+                  <div>
+                     <p><strong>Sinopse:</strong></p>
+                     <p class='sinopse-modal'>${livro['sinopse']}</p>
+                  </div>
+            </div>
+            <button type='button' class='button btn-fechar'>Fechar</button>
+         </div>
+      </div>`
+
+   document.body.insertAdjacentHTML('beforeend', modal)
+
+   const fundo = document.querySelector('.fundo')
+   const btn_fechar = document.querySelector('.btn-fechar')
+
+   const fecharModal = () => fundo.remove()
+
+   btn_fechar.addEventListener('click', fecharModal)
+   fundo.addEventListener('click', (event) => {
+      if (event.target === fundo) fecharModal()
+   })
+}
+
+export { criarCard, modal, cardHistorico, cardAviso, modalHis }
