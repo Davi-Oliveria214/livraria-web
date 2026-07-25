@@ -12,14 +12,14 @@ async function post(livro) {
     return adicionar
 }
 
-async function getLivros() {
-    const resp = await fetch(URL_API).then(data => data.json())
+async function getLivros(limit = 10, off = 0) {
+    const resp = await fetch(`${URL_API}?limit=${limit}&off=${off}`).then(data => data.json())
 
     return resp
 }
 
-async function plusLivros(limit, off) {
-    const resp = await fetch(`${URL_API}?limit=${limit}&off=${off}`).then(data => data.json())
+async function busca(tipo, valor) {
+    const resp = await fetch(`${URL_API}/filtro/${tipo}?valor=${valor}`).then(data => data.json())
 
     return resp
 }
@@ -30,17 +30,16 @@ async function getId(id) {
     return resp
 }
 
-async function historico(ordem = false) {
-    const resp = await fetch(`${URL_API}/historico?orem=${ordem}`).then(data => data.json())
+async function historico(limit = 10, off = 10, ordem = false) {
+    const resp = await fetch(`${URL_API}/historico?orem=${ordem}&limit=${limit}&off=${off}`).then(data => data.json())
 
     return resp
 }
 
-async function plusHistorico(limit, off, ordem = true) {
-    const resp = await fetch(`${URL_API}/historico?ordem=${ordem}&limit=${limit}&off=${off}`).then(data => data.json())
-    console.log(resp)
+async function generos(limit = 10, off = 0) {
+    const resp = await fetch(`${URL_API}/generos?limit=${limit}&off=${off}`).then(data => data.json())
 
     return resp
 }
 
-export { post, getLivros, getId, plusLivros, historico, plusHistorico }
+export { post, getLivros, busca, getId, historico, generos }

@@ -1,8 +1,16 @@
-import { getLivros, plusLivros } from '../api/api.js'
+import { getLivros, generos, busca } from '../api/api.js'
 import { criarCard, modal } from '../modal/modal.js'
 
+let carregando = false;
+let scrollOn = true;
+
 const lista = document.getElementById('lista')
+const filtro = document.querySelector('.filtros')
+
 async function dados() {
+   lista.innerHTML = ""
+   scrollOn = true
+
    if (!lista) return
 
    const livros = await getLivros()
@@ -18,14 +26,12 @@ async function dados() {
    }
 }
 
-let carregando = false;
-
-if (lista) lista.addEventListener('scroll', () => {
+lista.addEventListener('scroll', () => {
    var scrollTop = lista.scrollTop;
    var off = lista.children.length
    var limit = 10
 
-   if (carregando) return;
+   if (carregando || !scrollOn) return;
 
    if ((scrollTop + lista.clientHeight) >= (lista.scrollHeight - 200)) {
       gerarMais(limit, off);
@@ -35,7 +41,7 @@ if (lista) lista.addEventListener('scroll', () => {
 async function gerarMais(limit, off) {
    carregando = true;
 
-   const resp = await plusLivros(limit, off)
+   const resp = await getLivros(limit, off)
 
    if (resp && resp.length > 0) {
       let cards = ""
@@ -50,6 +56,45 @@ async function gerarMais(limit, off) {
    carregando = false;
 }
 
-window.abrirModal = modal;
+async function gerarGeneros() {
+   const resp = await generos()
+
+   if (resp['error']) return
+
+   let filtros = `<input type="radio" name="filtro" id="todos" onclick="todos()" />
+                <label for="todos" class="item">Todos</label>`
+
+   resp.forEach(element => {
+      filtros += `<input type="radio" name="filtro" id="${element['genero']}" onclick="filtrar('${element['genero']}')" />
+            <label for="${element['genero']}" class="item">${element['nome']}</label>`
+   })
+
+   filtro.insertAdjacentHTML('beforeend', filtros)
+}
+
+async function filtrar(codigo) {
+   scrollOn = false
+   lista.innerHTML = ""
+
+   const resp = await busca("genero", codigo)
+
+   if (resp['error']) {
+      const aviso = `<h2>${resp['message']}</h2>`
+      lista.insertAdjacentHTML('afterbegin', aviso)
+      return
+   }
+
+   let card = ""
+   resp.forEach(livro => {
+      card += criarCard(livro)
+   })
+
+   lista.insertAdjacentHTML('afterbegin', card)
+}
+
+window.filtrar = filtrar
+window.abrirModal = modal
+window.todos = dados
 
 dados()
+gerarGeneros()
