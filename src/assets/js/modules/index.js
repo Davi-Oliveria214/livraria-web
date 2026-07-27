@@ -1,8 +1,9 @@
 import { getLivros, generos, busca } from '../api/api.js'
 import { criarCard, modal } from '../modal/modal.js'
 
-let carregando = false;
-let scrollOn = true;
+let carregando = false
+let scrollOn = true
+let tipos = "", valor = ""
 
 const lista = document.getElementById('lista')
 const filtro = document.querySelector('.filtros')
@@ -40,8 +41,13 @@ lista.addEventListener('scroll', () => {
 
 async function gerarMais(limit, off) {
    carregando = true;
+   let resp = null
 
-   const resp = await getLivros(limit, off)
+   if (scrollOn) {
+      resp = await getLivros(limit, off)
+   } else {
+      resp = await busca(tipo, valor)
+   }
 
    if (resp && resp.length > 0) {
       let cards = ""
@@ -65,18 +71,19 @@ async function gerarGeneros() {
                 <label for="todos" class="item">Todos</label>`
 
    resp.forEach(element => {
-      filtros += `<input type="radio" name="filtro" id="${element['genero']}" onclick="filtrar('${element['genero']}')" />
+      filtros += `<input type="radio" name="filtro" id="${element['genero']}" onclick="filtrar('genero', '${element['genero']}')" />
             <label for="${element['genero']}" class="item">${element['nome']}</label>`
    })
 
    filtro.insertAdjacentHTML('beforeend', filtros)
 }
 
-async function filtrar(codigo) {
+async function filtrar(tipo, codigo) {
    scrollOn = false
    lista.innerHTML = ""
+   tipos = tipo
 
-   const resp = await busca("genero", codigo)
+   const resp = await busca(tipo, codigo)
 
    if (resp['error']) {
       const aviso = `<h2>${resp['message']}</h2>`
