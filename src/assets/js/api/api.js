@@ -12,6 +12,17 @@ async function post(livro) {
     return adicionar
 }
 
+async function atualizar(id, tipo, valor) {
+    const update = await fetch(`${URL_API}/${id}/${tipo}?valor=${valor}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json; charset=UTF-8'
+        }
+    }).then(data => data.json())
+
+    return update
+}
+
 async function getLivros(limit = 10, off = 0) {
     const resp = await fetch(`${URL_API}?limit=${limit}&off=${off}`).then(data => data.json())
 
@@ -42,4 +53,4 @@ async function generos(limit = 10, off = 0) {
     return resp
 }
 
-export { post, getLivros, busca, getId, historico, generos }
+export { post, atualizar, getLivros, busca, getId, historico, generos }

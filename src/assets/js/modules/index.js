@@ -1,5 +1,5 @@
 import { getLivros, generos, busca } from '../api/api.js'
-import { criarCard, modal } from '../modal/modal.js'
+import { criarCard, modal, modalEditar } from '../modal/modal.js'
 
 let carregando = false
 let scrollOn = true
@@ -102,6 +102,7 @@ async function filtrar(tipo, codigo) {
 window.filtrar = filtrar
 window.abrirModal = modal
 window.todos = dados
+window.abrirEditar = modalEditar
 
 dados()
 gerarGeneros()

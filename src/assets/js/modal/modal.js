@@ -1,4 +1,4 @@
-import { getId } from '../api/api.js'
+import { getId, atualizar } from '../api/api.js'
 
 const data = new Intl.DateTimeFormat('pt-br', {
    dateStyle: 'short',
@@ -30,7 +30,7 @@ function criarCard(livro) {
             <div class='fun-card'>
                <div class='grid-buttons'>
                   <button type='button' class='button detalhes' onclick='abrirModal(${livro['id']})'>Detalhes</button>
-                  <button type='button' class='button editar'>Editar</button>
+                  <button type='button' class='button editar'  onclick='abrirEditar(${livro['id']})'>Editar</button>
                </div>
                <div>
                   <button type='button' class='button excluir'>Excluir</button>
@@ -61,40 +61,42 @@ function cardHistorico(livro) {
    return card
 }
 
-function cardAviso(aviso) {
-   const info = function mostar(info) {
+function cardAviso(aviso, tipo = null) {
+   const info = (info) => {
       var msg = ""
-      if (!info['error']) {
+      if (!info['error'] && tipo == null) {
          msg = `<p>Autor: ${info['autor']}<p>
             <p>Titulo: ${info['titulo']}</p>
             <p>Lançamento: ${data.format(new Date(info['lancamento']))}</p>`
+      } else if (!info['error']) {
+         msg = `<p>${tipo}: ${aviso[tipo]}</p>`
       }
 
       return msg
    }
 
    const card =
-      `<div class="fundo">
+      `<div class="fundo fundo-aviso">
       <div class="card-aviso">
-         <h1>${aviso['error'] || 'Adicionado!!'}</h1>
+         <h1>${aviso['error'] || tipo || 'Adicionado!!'}</h1>
          <div>
-            <p>${aviso['message'] || 'Livro adicinado com sucesso!!'}</p>
+            <h2>${aviso['message'] || tipo + ' atualizado com sucesso!!' || 'Livro adicinado com sucesso!!'}</h2>
             ${info(aviso)}
          </div>
-         <button type="button" class="button btn-fechar">Fechar</button>
+         <button type="button" class="button btn-fechar-aviso">Fechar</button>
       </div>
    </div>`
 
    document.body.insertAdjacentHTML('beforeend', card)
 
-   const fundo = document.querySelector('.fundo')
-   const btn_fechar = document.querySelector('.btn-fechar')
+   const fundo = document.querySelector('.fundo-aviso')
+   const btn_aviso = document.querySelector('.btn-fechar-aviso')
 
-   const fecharModal = () => fundo.remove()
+   const fecharAviso = () => fundo.remove()
 
-   btn_fechar.addEventListener('click', fecharModal)
+   btn_aviso.addEventListener('click', fecharAviso)
    fundo.addEventListener('click', (event) => {
-      if (event.target === fundo) fecharModal()
+      if (event.target === fundo) fecharAviso()
    })
 }
 
@@ -175,4 +177,80 @@ async function modalHis(id) {
    })
 }
 
-export { criarCard, modal, cardHistorico, cardAviso, modalHis }
+async function modalEditar(id) {
+   const livro = await getId(id)
+   const keys = Object.keys(livro)
+
+   var info_editar = ''
+   keys.forEach(key => {
+      if (key == 'id' || key == 'criado_em') return
+
+      info_editar += `
+      <div class="info-editar">
+         <div>
+            <label for="${key}">${key}</label>
+            <input type="text" id="${key}" value="${livro[key]}" disabled>
+         </div>
+
+         <button type="button" class="editar btn-editar btn-${key}"
+            onclick="editar('${key}')">Editar</button>
+         <div class="box-editar box-${key}">
+            <button type="button" class="cancelar btn-editar" onclick="cancelar('${key}')">cancelar</button>
+            <button type="button" class="salvar btn-editar" onclick="salvar('${key}')">salvar</button>
+         </div>
+      </div>`
+   })
+
+   const card = `
+    <div class="fundo">
+        <div class="modal">
+            <h1>Livro</h1>
+            <div class="editar-card">
+                ${info_editar}
+            </div>
+            <button type="button" class="fechar btn-fechar">Fechar</button>
+        </div>
+    </div>`
+
+   document.body.insertAdjacentHTML('beforeend', card)
+
+   let input = null
+
+   window.editar = (tipo) => {
+      document.querySelector(`.btn-${tipo}`).style.display = 'none'
+
+      document.querySelector(`.box-${tipo}`).style.display = 'grid'
+
+      document.getElementById(tipo).disabled = false
+   }
+
+   window.cancelar = (tipo, resp = null) => {
+      const input = document.getElementById(tipo)
+      input.disabled = true
+      input.value = resp || livro[tipo]
+
+      document.querySelector(`.btn-${tipo}`).style.display = 'flex'
+
+      document.querySelector(`.box-${tipo}`).style.display = 'none'
+   }
+
+   window.salvar = async (tipo) => {
+      const input = document.getElementById(tipo)
+      const resp = await atualizar(livro['id'], tipo, input.value)
+
+      cardAviso(resp, tipo)
+      cancelar(tipo, resp[tipo])
+   }
+
+   const fundo = document.querySelector('.fundo')
+   const btn_fechar = document.querySelector('.btn-fechar')
+
+   const fecharModal = () => fundo.remove()
+
+   btn_fechar.addEventListener('click', fecharModal)
+   fundo.addEventListener('click', (event) => {
+      if (event.target === fundo) fecharModal()
+   })
+}
+
+export { criarCard, modal, cardHistorico, cardAviso, modalHis, modalEditar }

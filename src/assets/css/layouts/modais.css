@@ -1,3 +1,13 @@
+:root {
+    --verde-dark: #091a09;
+    --verde-dark-2: #132a13;
+    --verde-medium: #31572c;
+    --verde-light: #90a955;
+
+    --light: #ecf39e;
+    --black: #070707;
+}
+
 .fundo {
     width: 100vw;
     height: 100vh;
@@ -63,11 +73,68 @@
     font-size: 1.2rem;
     background-color: var(--verde-dark);
     color: var(--light);
+    transition: 0.3s ease;
 }
 
 .modal>button:hover {
     background-color: var(--light);
     color: var(--verde-dark);
+    transform: translateY(-3px);
+}
+
+.editar-card {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.editar-card>.info-editar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-editar>div {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-editar>div>label {
+    margin-left: 2px;
+    font-size: 1.2rem;
+}
+
+.info-editar>div>label::first-letter {
+    text-transform: uppercase;
+}
+
+.info-editar>div>input {
+    font-size: 1rem;
+    border: solid 2px var(--verde-light);
+    border-radius: 5px;
+    color: var(--black);
+    padding: 2px 5px;
+}
+
+.info-editar .btn-editar {
+    cursor: pointer;
+    padding: 5px;
+    height: 30px;
+    border: solid 2px var(--light);
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+.info-editar>button:hover {
+    transform: translateY(-3px);
+    background-color: var(--verde-dark-2);
+}
+
+.modal>.fechar {
+    padding: 3px;
+    border-radius: 5px;
+    border: 2px solid var(--verde-light);
+    font-weight: 700;
 }
 
 .card-aviso {
@@ -83,12 +150,47 @@
     transition: 0.3s ease;
 }
 
+.info-editar>.box-editar {
+    display: none;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+}
+
+.box-editar>.cancelar {
+    background-color: rgba(255, 0, 0, 0.3);
+    border-color: var(--black);
+    --cor-btn: rgba(255, 0, 0, 0.5);
+    transition: 0.3s ease;
+}
+
+.box-editar>.cancelar:hover {
+    background-color: var(--cor-btn);
+    transform: translateY(-4px);
+}
+
+.box-editar>.salvar {
+    background-color: rgba(0, 128, 0, 0.3);
+    border-color: var(--black);
+    --cor-btn: rgba(0, 128, 0, 0.5);
+    transition: 0.3s ease;
+}
+
+.box-editar>.salvar:hover {
+    background-color: var(--cor-btn);
+    transform: translateY(-4px);
+}
+
 .card-aviso>h1 {
     text-align: center;
     font-size: 2rem;
 }
 
-.card-aviso>p {
+.card-aviso>h1::first-letter,
+.card-aviso>h2::first-letter {
+    text-transform: uppercase;
+}
+
+.card-aviso>h2 {
     text-align: justify;
     font-size: 1.4rem;
 }
