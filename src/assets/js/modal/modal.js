@@ -1,4 +1,4 @@
-import { getId, atualizar } from '../api/api.js'
+import { getId, atualizar, generos } from '../api/api.js'
 
 const data = new Intl.DateTimeFormat('pt-br', {
    dateStyle: 'short',
@@ -179,7 +179,29 @@ async function modalHis(id) {
 
 async function modalEditar(id) {
    const livro = await getId(id)
+   const genero = await generos()
    const keys = Object.keys(livro)
+
+   const inputsLivros = (valor) => {
+      if (valor == 'genero') {
+         const opcoes = () => {
+            let opcoe = ''
+            genero.forEach(g => {
+               const selecionado = g['nome'] === livro['genero'] ? 'selected' : '';
+
+               opcoe += `<option value="${g['genero']}" ${selecionado}>${g['nome']}</option>`
+            })
+            return opcoe
+         }
+
+         return `
+         <select name="genero" id="genero" disabled>
+            ${opcoes()}
+         </select>`
+      }
+
+      return `<input type="text" id="${valor}" value="${livro[valor]}" disabled>`
+   }
 
    var info_editar = ''
    keys.forEach(key => {
@@ -189,7 +211,7 @@ async function modalEditar(id) {
       <div class="info-editar">
          <div>
             <label for="${key}">${key}</label>
-            <input type="text" id="${key}" value="${livro[key]}" disabled>
+            ${inputsLivros(key)}
          </div>
 
          <button type="button" class="editar btn-editar btn-${key}"
@@ -221,13 +243,19 @@ async function modalEditar(id) {
 
       document.querySelector(`.box-${tipo}`).style.display = 'grid'
 
-      document.getElementById(tipo).disabled = false
+      document.getElementById(tipo).removeAttribute('disabled')
+      document.getElementById(tipo).focus()
    }
 
    window.cancelar = (tipo, resp = null) => {
       const input = document.getElementById(tipo)
       input.disabled = true
-      input.value = resp || livro[tipo]
+
+      if (tipo != 'genero') {
+         input.value = resp || livro[tipo]
+      } else {
+         input.option = resp || livro[tipo]
+      }
 
       document.querySelector(`.btn-${tipo}`).style.display = 'flex'
 
