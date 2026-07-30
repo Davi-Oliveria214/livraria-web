@@ -184,13 +184,23 @@ async function modalEditar(id) {
    const livro = await getId(id)
    const genero = await generos()
    const keys = Object.keys(livro)
+   let selec = null
 
    const inputsLivros = (valor) => {
       if (valor == 'genero') {
          const opcoes = () => {
+            const salve = (g) => {
+               if (selec != null) {
+                  return
+               }
+
+               selec = g['nome'] === livro['genero'] ? g['genero'] : null;
+            }
+
             let opcoe = ''
             genero.forEach(g => {
                const selecionado = g['nome'] === livro['genero'] ? 'selected' : '';
+               salve(g)
 
                opcoe += `<option value="${g['genero']}" ${selecionado}>${g['nome']}</option>`
             })
@@ -257,7 +267,7 @@ async function modalEditar(id) {
       if (tipo != 'genero') {
          input.value = resp || livro[tipo]
       } else {
-         input.option = resp || livro[tipo]
+         input.value = selec
       }
 
       document.querySelector(`.btn-${tipo}`).style.display = 'flex'

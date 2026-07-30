@@ -113,12 +113,27 @@
 }
 
 .info-editar>div>input {
+    width: 210px;
     font-size: 1rem;
     border: solid 2px var(--verde-light);
     border-radius: 5px;
     color: var(--black);
     padding: 2px 5px;
 }
+
+.info-editar>div>#genero {
+    width: 210px;
+    font-size: 1rem;
+    border: solid 2px var(--verde-light);
+    border-radius: 5px;
+    color: var(--black);
+    padding: 2px 5px;
+}
+
+.info-editar>div>#genero>option {
+    color: var(--black);
+}
+
 
 .info-editar .btn-editar {
     cursor: pointer;
