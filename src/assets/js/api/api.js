@@ -23,6 +23,14 @@ async function atualizar(id, tipo, valor) {
     return update
 }
 
+async function deletar(id) {
+    const del = await fetch(`${URL_API}/${id}`, {
+        method: 'DELETE'
+    }).then(data => data.json())
+
+    return del
+}
+
 async function getLivros(limit = 10, off = 0) {
     const resp = await fetch(`${URL_API}?limit=${limit}&off=${off}`).then(data => data.json())
 
@@ -53,4 +61,4 @@ async function generos(limit = 10, off = 0) {
     return resp
 }
 
-export { post, atualizar, getLivros, busca, getId, historico, generos }
+export { post, atualizar, deletar, getLivros, busca, getId, historico, generos }

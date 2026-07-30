@@ -1,4 +1,4 @@
-import { getId, atualizar, generos } from '../api/api.js'
+import { getId, atualizar, deletar, generos } from '../api/api.js'
 
 const data = new Intl.DateTimeFormat('pt-br', {
    dateStyle: 'short',
@@ -33,7 +33,7 @@ function criarCard(livro) {
                   <button type='button' class='button editar'  onclick='abrirEditar(${livro['id']})'>Editar</button>
                </div>
                <div>
-                  <button type='button' class='button excluir'>Excluir</button>
+                  <button type='button' class='button excluir' onclick="apagar(${livro['id']})">Excluir</button>
                </div>
             </div>
          </div>
@@ -68,7 +68,7 @@ function cardAviso(aviso, tipo = null) {
          msg = `<p>Autor: ${info['autor']}<p>
             <p>Titulo: ${info['titulo']}</p>
             <p>Lançamento: ${data.format(new Date(info['lancamento']))}</p>`
-      } else if (!info['error']) {
+      } else if (!info['error'] && tipo != 'apagar') {
          msg = `<p>${tipo}: ${aviso[tipo]}</p>`
       }
 
@@ -92,7 +92,10 @@ function cardAviso(aviso, tipo = null) {
    const fundo = document.querySelector('.fundo-aviso')
    const btn_aviso = document.querySelector('.btn-fechar-aviso')
 
-   const fecharAviso = () => fundo.remove()
+   const fecharAviso = () => {
+      fundo.remove()
+      window.location.reload(true)
+   }
 
    btn_aviso.addEventListener('click', fecharAviso)
    fundo.addEventListener('click', (event) => {
@@ -281,4 +284,37 @@ async function modalEditar(id) {
    })
 }
 
-export { criarCard, modal, cardHistorico, cardAviso, modalHis, modalEditar }
+async function cardApagar(id) {
+   const card = `
+   <div class="fundo">
+        <div class="modal apagar-livro">
+            <h1>Apagar</h1>
+            <p>Deseja realmente apagar esse livro ?</p>
+            <div>
+                <button type="button" class="button apagar" onclick="apagarLivro(${id})">Apagar</button>
+                <button type="button" class="button cancelar btn-fechar">Cancela</button>
+            </div>
+        </div>
+    </div>
+   `
+
+   window.apagarLivro = async (id) => {
+      const resp = await deletar(id)
+
+      cardAviso(resp, 'apagar')
+   }
+
+   document.body.insertAdjacentHTML('beforeend', card)
+
+   const fundo = document.querySelector('.fundo')
+   const btn_fechar = document.querySelector('.btn-fechar')
+
+   const fecharModal = () => fundo.remove()
+
+   btn_fechar.addEventListener('click', fecharModal)
+   fundo.addEventListener('click', (event) => {
+      if (event.target === fundo) fecharModal()
+   })
+}
+
+export { criarCard, modal, cardApagar, cardHistorico, cardAviso, modalHis, modalEditar }

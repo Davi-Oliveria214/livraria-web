@@ -46,6 +46,7 @@ main {
   font-weight: 700;
   text-align: center;
   border: 2px solid var(--verde-medium);
+  --cor-btn: var(--light);
   transition:
     transform 0.3s,
     color 0.3s,
