@@ -1,4 +1,4 @@
-import { post } from '../api/api.js'
+import { post, generos } from '../api/api.js'
 import { cardAviso } from '../modal/modal.js'
 
 const form = document.getElementById('form-livro')
@@ -22,3 +22,18 @@ form.onsubmit = async function (event) {
 
     cardAviso(resp)
 }
+
+async function gerarGeneros() {
+    const resp = await generos()
+
+    if (resp['error']) return
+
+    let options = ''
+    resp.forEach(data => {
+        options += `<option value="${data['codigo']}" selected>${data['nome']}</option>`
+    })
+
+    document.getElementById('genero').insertAdjacentHTML('afterbegin', options)
+}
+
+gerarGeneros()
