@@ -12,12 +12,13 @@ async function post(livro) {
     return adicionar
 }
 
-async function atualizar(id, tipo, valor) {
-    const update = await fetch(`${URL_API}/${id}/${tipo}?valor=${valor}`, {
+async function atualizar(id, valor) {
+    const update = await fetch(`${URL_API}/${id}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json; charset=UTF-8'
-        }
+        },
+        body: JSON.stringify(valor)
     }).then(data => data.json())
 
     return update
@@ -31,8 +32,8 @@ async function deletar(id) {
     return del
 }
 
-async function getLivros(limit = 10, off = 0) {
-    const resp = await fetch(`${URL_API}?limit=${limit}&off=${off}`).then(data => data.json())
+async function getLivros() {
+    const resp = await fetch(`${URL_API}`).then(data => data.json())
 
     return resp
 }
@@ -49,14 +50,14 @@ async function getId(id) {
     return resp
 }
 
-async function historico(limit = 10, off = 0, ordem = true) {
-    const resp = await fetch(`${URL_API}/historico?limit=${limit}&off=${off}&ordem=${ordem}`).then(data => data.json())
+async function historico(ordem = true) {
+    const resp = await fetch(`${URL_API}/historico?ordem=${ordem}`).then(data => data.json())
 
     return resp
 }
 
-async function generos(limit = 10, off = 0) {
-    const resp = await fetch(`${URL_API}/generos?limit=${limit}&off=${off}`).then(data => data.json())
+async function generos() {
+    const resp = await fetch(`${URL_API}/generos`).then(data => data.json())
 
     return resp
 }

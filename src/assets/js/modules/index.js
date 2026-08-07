@@ -35,16 +35,16 @@ lista.addEventListener('scroll', () => {
    if (carregando || !scrollOn) return;
 
    if ((scrollTop + lista.clientHeight) >= (lista.scrollHeight - 200)) {
-      gerarMais(limit, off);
+      gerarMais();
    }
 })
 
-async function gerarMais(limit, off) {
+async function gerarMais() {
    carregando = true;
    let resp = null
 
    if (scrollOn) {
-      resp = await getLivros(limit, off)
+      resp = await getLivros()
    } else {
       resp = await busca(tipo, valor)
    }

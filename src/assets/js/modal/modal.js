@@ -181,9 +181,9 @@ async function modalHis(id) {
 }
 
 async function modalEditar(id) {
-   const livro = await getId(id)
+   const livroAll = await getId(id)
    const genero = await generos()
-   const keys = Object.keys(livro)
+   const keys = Object.keys(livroAll)
    let selec = null
 
    const inputsLivros = (valor) => {
@@ -194,12 +194,12 @@ async function modalEditar(id) {
                   return
                }
 
-               selec = g['nome'] === livro['genero'] ? g['genero'] : null;
+               selec = g['nome'] === livroAll['genero'] ? g['genero'] : null;
             }
 
             let opcoe = ''
             genero.forEach(g => {
-               const selecionado = g['nome'] === livro['genero'] ? 'selected' : '';
+               const selecionado = g['nome'] === livroAll['genero'] ? 'selected' : '';
                salve(g)
 
                opcoe += `<option value="${g['genero']}" ${selecionado}>${g['nome']}</option>`
@@ -213,7 +213,7 @@ async function modalEditar(id) {
          </select>`
       }
 
-      return `<input type="text" id="${valor}" value="${livro[valor]}" disabled>`
+      return `<input type="text" id="${valor}" value="${livroAll[valor]}" disabled>`
    }
 
    var info_editar = ''
@@ -249,8 +249,6 @@ async function modalEditar(id) {
 
    document.body.insertAdjacentHTML('beforeend', card)
 
-   let input = null
-
    window.editar = (tipo) => {
       document.querySelector(`.btn-${tipo}`).style.display = 'none'
 
@@ -277,7 +275,18 @@ async function modalEditar(id) {
 
    window.salvar = async (tipo) => {
       const input = document.getElementById(tipo)
-      const resp = await atualizar(livro['id'], tipo, input.value)
+
+      let livro = null
+      if (tipo === 'titulo') livro = { titulo: input.value }
+      if (tipo === 'autor') livro = { autor: input.value }
+      if (tipo === 'genero') livro = { genero: input.value }
+      if (tipo === 'isbn') livro = { isbn: input.value }
+      if (tipo === 'preco') livro = { preco: input.value }
+      if (tipo === 'estoque') livro = { estoque: input.value }
+      if (tipo === 'lancamento') livro = { lancamento: input.value }
+      if (tipo === 'sinopse') livro = { sinopse: input.value }
+
+      const resp = await atualizar(livroAll['id'], livro)
 
       cardAviso(resp, tipo)
       cancelar(tipo, resp[tipo])

@@ -27,15 +27,15 @@ if (container) container.addEventListener('scroll', () => {
     if (carregando) return;
 
     if ((scroll + container.clientHeight) >= (container.scrollHeight - 500)) {
-        gerarMais(limit, off);
+        gerarMais();
     }
 })
 
 
-async function gerarMais(limit, off, ordem = true) {
+async function gerarMais(ordem = true) {
     carregando = true;
 
-    const resp = await historico(limit, off, ordem)
+    const resp = await historico(ordem)
 
     if (resp && resp.length > 0) {
         let cards = ""
